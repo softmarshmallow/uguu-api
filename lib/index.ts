@@ -1,5 +1,5 @@
 import Axios from "axios"
-import * as FormData from "form-data"
+
 const UGUU_BASE_URL = "https://uguu.se/api.php?d=upload-tool"
 
 
@@ -29,6 +29,7 @@ interface TempHostingResponse {
  * @param file the file content as raw, or as fs.stream, or as buffer.
  */
 export async function upload(name: string, file: any): Promise<TempHostingResponse> {
+    const FormData = require("form-data")
     const formData = new FormData();
 
     formData.append("file", file, { filename: name });

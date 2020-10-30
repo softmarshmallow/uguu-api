@@ -3,20 +3,12 @@
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "target": "es2017",
     "sourceMap": false,
-    "outDir": "./dist",
-    "incremental": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "../../node_modules/@types"
-    ]
+    "outDir": "./dist"
   },
-  
   "exclude": [
     "example",
     "tests",

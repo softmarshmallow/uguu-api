@@ -1,5 +1,5 @@
 import Axios from "axios"
-
+import FormData from "form-data"
 const UGUU_BASE_URL = "https://uguu.se/api.php?d=upload-tool"
 
 
@@ -29,14 +29,25 @@ interface TempHostingResponse {
  * @param file the file content as raw, or as fs.stream, or as buffer.
  */
 export async function upload(name: string, file: any): Promise<TempHostingResponse> {
-    const FormData = require("form-data")
     const formData = new FormData();
 
     formData.append("file", file, { filename: name });
 
-    const resp = await axios.post("", formData, {
-        headers: formData.getHeaders()
-    })
+    const header = formData.getHeaders ? formData.getHeaders() : undefined
+    let resp;
+    try {
+        resp = await axios.post("", formData,
+            {
+                headers: header
+            }
+        )
+    } catch (e) {
+        // if cors issue, retry with this.
+        const CORS_ANYWHERE_URL = `https://cors-anywhere.herokuapp.com/`
+        resp = await Axios.post(CORS_ANYWHERE_URL + UGUU_BASE_URL, formData, {
+            headers: header
+        })
+    }
     /** Since this api does not use standart http status code, even error response comes with 200 OK.
      * To explicitly handle this, we have to check the response data. */
     if (ERROR_RESPONSES.some((e) => { return (resp.data as string).includes(e) })) {

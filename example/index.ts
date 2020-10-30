@@ -10,6 +10,7 @@ async function example() {
         const file = fs.createReadStream('./example/file.txt')
         // const blob = await fetch(TEST_TXT_FILE_CONTENT).then(res => res.blob());
 
+        // const file = new Blob([TEST_TXT_FILE_CONTENT], { type: "text/plain" })
         const res = upload(TEST_TXT_FILE_NAME, file)
         res.then((d) => {
             console.log(d)

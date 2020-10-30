@@ -14,10 +14,16 @@ yarn add uguu-api
 ``` ts
 import { upload } from "uguu-api"
 
+// Node
 upload("myfile.md", "#My file\n>awesome.").then((r)=> {
   console.log(r)
 })
 
+
+// Browser
+upload("myfile.md", new Blob(["#My file\n>awesome."])).then((r)=> {
+  console.log(r)
+})
 
 >>> { url: "https://a.uguu.se/edq0g575eEml_file.md", originName: "myfile.md" } 
 ```
